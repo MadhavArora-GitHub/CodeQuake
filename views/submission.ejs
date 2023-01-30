@@ -1,0 +1,105 @@
+<%- include("partials/header.ejs") %>
+
+<!-- Navbar -->
+    <%- include("partials/navbar.ejs") %> 
+
+    <div class="box-one contest-div">
+        <h4><%= user.username %> submissions</h4>
+
+        <div class="row contest-row-div">
+            <div class="col contest-col-div">
+                <span>#</span>
+            </div>
+            <div class="col-3 contest-col-div">
+                <span>When</span>
+            </div>
+            <div class="col contest-col-div">
+                <span>Who</span>
+            </div>
+            <div class="col-2 contest-col-div">
+                <span>Problem</span>
+            </div>
+            <div class="col contest-col-div">
+                <span>Lang</span>
+            </div>
+            <div class="col-2 contest-col-div">
+                <span>Verdict</span>
+            </div>
+            <div class="col contest-col-div">
+                <span>Time</span>
+            </div>
+            <div class="col contest-col-div contest-col-div-last">
+                <span>Memory</span>
+            </div>
+        </div>
+
+        <% for (let i=0; i<submissions.length; i++){ %>
+            <% if (i%2 === 0){ %> 
+                <div class="row contest-row-div contest-row-div-background">
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].subId %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].timestamp %></span>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].username %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].probId %></span>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].language %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <% if (submissions[i].status === false){ %>
+                            <span id="status">Running...</span>
+                        <% } else { %>
+                            <span id="status"><%= submissions[i].verdict %></span>
+                        <% } %>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].time %></span>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-last contest-col-div-info">
+                        <span><%= submissions[i].memory %></span>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="row contest-row-div">
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].subId %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].timestamp %></span>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].username %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].probId %></span>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].language %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <% if (submissions[i].status === false){ %>
+                            <span id="status">Running...</span>
+                        <% } else { %>
+                            <span id="status"><%= submissions[i].verdict %></span>
+                        <% } %>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-info">
+                        <span><%= submissions[i].time %></span>
+                    </div>
+                    <div class="col contest-col-div contest-col-div-last contest-col-div-info">
+                        <span><%= submissions[i].memory %></span>
+                    </div>
+                </div>
+            <% } %> 
+        <% }; %>
+
+    </div>
+
+
+<%- include("partials/footer.ejs") %> 

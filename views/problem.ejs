@@ -1,0 +1,127 @@
+<%- include("partials/header.ejs") %>
+
+<!-- Navbar -->
+    <%- include("partials/navbar.ejs") %>
+
+    <div class="box-one contest-div problem-div">
+        <h3><%= problem.id %> - <%= problem.name %></h3>
+
+
+        <p class="problem-limits">
+            time limit per test: <%= problem.timeLimit %> seconds<br>
+            memory limit per test: <%= problem.memoryLimit %> megabytes<br>
+            input: standard input<br>
+            output: standard ouput<br>
+        </p>
+
+
+        <p class="problem-description">
+            <%= problem.problemStatement %>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias sapiente doloribus minima illum, ipsum porro reiciendis blanditiis impedit ipsa vero incidunt voluptatibus tempore? Accusamus similique nobis blanditiis, eius tenetur eveniet.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias sapiente doloribus minima illum, ipsum porro reiciendis blanditiis impedit ipsa vero incidunt voluptatibus tempore? Accusamus similique nobis blanditiis, eius tenetur eveniet.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias sapiente doloribus minima illum, ipsum porro reiciendis blanditiis impedit ipsa vero incidunt voluptatibus tempore? Accusamus similique nobis blanditiis, eius tenetur eveniet.
+        </p>
+        <p class="problem-description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias sapiente doloribus minima illum, ipsum porro reiciendis blanditiis impedit ipsa vero incidunt voluptatibus tempore? Accusamus similique nobis blanditiis, eius tenetur eveniet.
+        </p>
+
+
+        <h5>Input</h5>
+        <p class="problem-description">
+            <%= problem.input %> 
+        </p>
+
+
+        <h5>Output</h5>
+        <p class="problem-description">
+            <%= problem.output %> 
+        </p>
+
+
+        <h5>Examples</h5>
+        <div class="sample-box">
+            <div class="sample-input">
+                <div class="sample-title">Input
+                    <button type="button" data-copy-target="#sampleInput">Copy</button>
+                </div>
+                <pre id="sampleInput">
+                    <% if (problem.sampleTestcases > 0){ %>
+                        <div class="sample-testcase sample-back"><%= problem.sampleTestcases %></div>
+                        <% for (let i=0; i<problem.sampleInput.length; i++){ %>
+                            <% if (i%2 === 0){ %>
+                                <div class="sample-testcase"><%= problem.sampleInput[i] %></div>
+                            <% } else { %> 
+                                <div class="sample-testcase sample-back"><%= problem.sampleInput[i] %></div>
+                            <% } %> 
+                        <% } %> 
+                    <% } else { %>
+                        <% for (let i=0; i<problem.sampleInput.length; i++){ %>
+                            <% if (i%2 === 1){ %>
+                                <div class="sample-testcase"><%= problem.sampleInput[i] %></div>
+                            <% } else { %> 
+                                <div class="sample-testcase sample-back"><%= problem.sampleInput[i] %></div>
+                            <% } %> 
+                        <% } %> 
+                    <% } %> 
+                </pre>
+            </div>
+            <div class="sample-output">
+                <div class="sample-title">Output
+                    <button type="button" data-copy-target="#sampleOutput">Copy</button>
+                </div>
+                <pre id="sampleOutput">
+                    <% for (let i=0; i<problem.sampleOutput.length; i++){ %>
+                        <div class="sample-testcase"><%= problem.sampleOutput[i] %></div> 
+                    <% } %> 
+                </pre>
+            </div>
+        </div>
+
+        <% if (contest !== undefined){ %>
+            <form action="/contest/<%= contest.id %>/submit/<%= problem.id %>" method="post">
+                <input type="hidden" name="isFile" value="true">
+    
+                <input type="file" name="file">
+                <button type="submit">Submit</button>
+            </form>
+    
+            <form id="code-form" action="/contest/<%= contest.id %>/submit/<%= problem.id %>" method="post">
+                <input type="hidden" name="isFile" value="false">
+                <input type="hidden" name="code">
+    
+                <select name="lang" id="langSelect">
+                    <option value="cpp">C++</option>
+                    <option value="c">C</option>
+                    <option value="java">Java</option>
+                    <option value="py">Python</option>
+                </select>
+                <div id="editor"></div>
+                <button type="submit">Submit</button>
+            </form>
+        <% } else { %>
+            <form action="/submit/<%= problem.id %>" method="post">
+                <input type="hidden" name="isFile" value="true">
+
+                <input type="file" name="file">
+                <button type="submit">Submit</button>
+            </form>
+
+            <form id="code-form" action="/submit/<%= problem.id %>" method="post">
+                <input type="hidden" name="isFile" value="false">
+                <input type="hidden" name="code">
+
+                <select name="lang" id="langSelect">
+                    <option value="cpp">C++</option>
+                    <option value="c">C</option>
+                    <option value="java">Java</option>
+                    <option value="py">Python</option>
+                </select>
+                <div id="editor"></div>
+                <button type="submit">Submit</button>
+            </form>
+        <% } %>
+
+    </div>
+
+
+<%- include("partials/footer.ejs") %> 

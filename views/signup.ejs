@@ -1,0 +1,26 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="login-container">
+        <form action="/user/signup" method="post">
+            <img src="/images/logo.png" alt="Logo">
+
+            <h2>Join CodeQuake</h2>
+
+            <div class="social-container">
+                <a href="#"><span class="fa-brands fa-facebook-f"></span></a>
+                <a href="#"><span class="fa-brands fa-google"></span></a>
+                <a href="#"><span class="fa-brands fa-linkedin-in"></span></a>
+            </div>
+
+            <span>or use your email for registration</span> <br>   
+
+            <input type="email" placeholder="Email" name="email">
+            <input type="text" placeholder="Username" name="username">
+            <input type="password" placeholder="Password" name="password"> <br>
+
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+<%- include("partials/footer.ejs") %> 

@@ -1,0 +1,42 @@
+<%- include("partials/header.ejs") %>
+
+<!-- Navbar -->
+    <%- include("partials/navbar.ejs") %> 
+
+
+    <div class="box-one contest-div">
+        <h4>Editorials</h4>
+
+        <div class="row contest-row-div">
+            <div class="col-10 contest-col-div">
+                <span>Name</span>
+            </div>
+            <div class="col-2 contest-col-div contest-col-div-last"></div>
+        </div>
+
+        <% for (let i=0; i<contests.length; i++){ %>
+            <% if (i%2 === 0){ %> 
+                <div class="row contest-row-div contest-row-div-background">
+                    <div class="col-10 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].name %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-last contest-col-div-info">
+                        <a href="/editorials/<%= contests[i].id %>">link</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="row contest-row-div">
+                    <div class="col-10 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].name %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-last contest-col-div-info">
+                        <a href="/editorials/<%= contests[i].id %>">link</a>
+                    </div>
+                </div>
+            <% } %> 
+        <% }; %>
+
+    </div>
+
+
+<%- include("partials/footer.ejs") %> 

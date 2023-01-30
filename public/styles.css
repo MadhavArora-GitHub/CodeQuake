@@ -1,0 +1,313 @@
+/* #f8f9fa */
+/* #f2f3f5 */
+/* #bfc0c2 */
+/* #212121 */
+/* #5ce1e6 */
+/* #546370 */
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background-image: url("images/background.png");
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+/*---------- Navbar ----------*/
+.navbar {
+    margin: 0;
+    padding: 0 5%;
+    background-color: #ffffff;
+    /* position: relative; */
+    border-bottom: solid;
+    border-color: #bfc0c2;
+    border-bottom-width: 5px;
+}
+
+.logo {
+    width: 80px;
+    float: left;
+    /* position: absolute;
+    right: auto;
+    left: 0;
+    top: 0;
+    bottom: 0; */
+}
+
+.logo-text {
+    color: #546370;
+    font-family: "Amaranth", sans-serif;
+    font-weight: bold;
+    font-size: 2.2rem;
+    line-height: 4.6rem;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.nav-link {
+    --bs-navbar-nav-link-padding-x: 12px;
+}
+
+.nav-link:hover {
+    color: #000000;
+    background-color: #f2f3f5;
+}
+
+.nav-link.active {
+    color: #000000;
+    border-bottom: solid;
+    border-width: 4px;
+    border-color: #bfc0c2;
+}
+
+/*---------- Home Contests Carousel ----------*/
+.box-one {
+    margin: 3% 8%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px #bfc0c2;
+}
+
+.image-box-one {
+    padding: 40px 60px 40px 60px;
+}
+
+.image-box-one img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* .fa-circle-arrow-left, .fa-circle-arrow-right {
+    color: #bfc0c2;
+    font-size: 30px;
+}
+
+.fa-circle-arrow-left:hover, .fa-circle-arrow-right:hover {
+    color: #546370;
+} */
+
+.lni-pulse {
+    font-size: 30px;
+    font-weight: bold;
+    color: #bfc0c2;
+}
+
+.lni-pulse:hover {
+    color: #546370;
+}
+
+.flip {
+    transform: scaleX(-1);
+}
+
+.carousel-control-prev, .carousel-control-next {
+    height: 30px;
+    width: 30px;
+    margin: auto 15px;
+    opacity: 1;
+}
+
+.carousel-control-prev:focus, .carousel-control-next:focus {
+    opacity: 1;
+}
+
+/*---------- Login - Signup ----------*/
+.login-container {
+    background-color: #ffffff;
+    width: 480px;
+    height: 600px;
+    margin: 5% auto auto auto;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px #bfc0c2;
+    text-align: center;
+    padding: 0 50px;
+}
+
+.social-container {
+	margin: 20px 0;
+}
+
+.social-container a {
+    color: #546370;
+	border: solid;
+    border-width: 1px;
+    border-color: #546370;
+	border-radius: 50%;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 5px;
+	height: 40px;
+	width: 40px;
+	text-decoration: none;
+    background-color: #f2f3f5;
+}
+
+.login-container button[type="submit"] {
+    border-radius: 20px;
+	border: solid;
+    border-width: 1px;
+	border-color: #546370;
+	color: #546370;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+    background-color: #f2f3f5;
+    margin: 20px auto;
+}
+
+.login-container img {
+    width: 200px;
+}
+
+.login-container input[name="email"] {
+    margin-top: 10px;
+}
+
+.login-container input {
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: #f2f3f5;
+    border: 1px solid #f2f3f5;
+    color: #546370;
+}
+
+.login-container input:focus-visible {
+    outline: 1px solid #546370;
+}
+
+.login-container span, .login-container a {
+    color: #546370;
+    text-decoration: none;
+}
+
+/*---------- Contests ----------*/
+.contest-div {
+    border: 5px solid #f2f3f5;
+}
+
+.box-one h4 {
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin: 0;
+    background-color: #f2f3f5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.contest-row-div {
+    margin: 0;
+}
+
+.contest-row-div-background {
+    background-color: #f2f3f5;
+}
+
+.contest-col-div {
+    text-align: center;
+    padding: 0;
+    border-top: 1px solid #bfc0c2;
+    border-right: 1px solid #bfc0c2;
+    margin: 0;
+}
+
+.contest-col-div-remove {
+    border-bottom: none;
+}
+
+.contest-col-div-info {
+    padding: 10px;
+}
+
+.contest-col-div-last {
+    border-right: none;
+}
+
+/*---------- Practice ----------*/
+
+
+/*---------- Problem ----------*/
+.problem-div {
+    padding: 3% 2%;
+}
+
+.problem-div h3 {
+    text-align: center;
+}
+
+.problem-div h5 {
+    margin: 0;
+    padding-top: 2px;
+}
+
+.problem-limits {
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.4;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.sample-box {
+    border: 2px solid #bfc0c2;
+    margin-top: 5px;
+}
+
+.sample-input .sample-title {
+    padding: 0.3rem;
+    border-bottom: 2px solid #bfc0c2;
+    font-weight: 500;
+}
+
+.sample-output .sample-title {
+    padding: 0.3rem;
+    border-bottom: 2px solid #bfc0c2;
+    border-top: 2px solid #bfc0c2;
+    font-weight: 500;
+}
+
+.sample-back {
+    background-color: #e0e0e0;
+}
+
+pre {
+    line-height: 1.25rem;
+    margin: 0;
+    padding: 0.25rem;
+    white-space: nowrap;
+    color: #800000;
+    background-color: #efefef;
+}
+
+/*---------- Contest ----------*/
+.contest-live {
+    padding: 0 3% 5%;
+    background-color: #f2f3f5;
+    margin: 0 8%;
+}
+
+.contest-box {
+    margin: 0;
+}
+
+#problems, #standings {
+    text-decoration: none   ;
+    color: #0000008c;
+    font-size: 1.1rem;
+    padding-left: 15px;
+}
+
+#problems:hover, #standings:hover {
+    color: #000000;
+}
+
+.contest-nav {
+    padding: 3% 0 3%;
+}

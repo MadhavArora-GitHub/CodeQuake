@@ -1,0 +1,114 @@
+<%- include("partials/header.ejs") %>
+
+<!-- Navbar -->
+    <%- include("partials/navbar.ejs") %> 
+
+<!-- Current or upcoming contests -->
+    <div class="box-one contest-div">
+        <h4>Current or upcoming contests</h4>
+
+        <div class="row contest-row-div">
+            <div class="col-4 contest-col-div">
+                <span>Name</span>
+            </div>
+            <div class="col-3 contest-col-div">
+                <span>Start</span>
+            </div>
+            <div class="col-2 contest-col-div">
+                <span>Length</span>
+            </div>
+            <div class="col-3 contest-col-div contest-col-div-last">
+                <span>Status</span>
+            </div>
+        </div>
+
+        <% for (let i=0; i<contests.length; i++){ %>
+            <% if (i%2 === 0){ %> 
+                <div class="row contest-row-div contest-row-div-background">
+                    <div class="col-4 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].name %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].start %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].end - contests[i].start %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-last contest-col-div-info">
+                        <a href="/contest/<%= contests[i].id %>/problems">Enter</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="row contest-row-div">
+                    <div class="col-4 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].name %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].start %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].end - contests[i].start %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-last contest-col-div-info">
+                        <span>Register asap</span>
+                    </div>
+                </div>
+            <% } %> 
+        <% }; %>
+    </div>
+
+<!-- Past contests -->
+    <div class="box-one contest-div">
+        <h4>Past contests</h4>
+
+        <div class="row contest-row-div">
+            <div class="col-4 contest-col-div">
+                <span>Name</span>
+            </div>
+            <div class="col-3 contest-col-div">
+                <span>Start</span>
+            </div>
+            <div class="col-2 contest-col-div">
+                <span>Length</span>
+            </div>
+            <div class="col-3 contest-col-div contest-col-div-last">
+                <span>Status</span>
+            </div>
+        </div>
+
+        <% for (let i=0; i<contests.length; i++){ %>
+            <% if (i%2 === 0){ %> 
+                <div class="row contest-row-div contest-row-div-background">
+                    <div class="col-4 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].name %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].start %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].end - contests[i].start %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-last contest-col-div-info">
+                        <span>Register asap</span>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="row contest-row-div">
+                    <div class="col-4 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].name %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].start %></span>
+                    </div>
+                    <div class="col-2 contest-col-div contest-col-div-info">
+                        <span><%= contests[i].end - contests[i].start %></span>
+                    </div>
+                    <div class="col-3 contest-col-div contest-col-div-last contest-col-div-info">
+                        <span>Register asap</span>
+                    </div>
+                </div>
+            <% } %> 
+        <% }; %>
+    </div>
+
+<%- include("partials/footer.ejs") %> 
