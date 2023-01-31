@@ -75,11 +75,11 @@
                     <% for (let i=0; i<contest.problems.length; i++){ %>
                         <% if (i === contest.problems.length-1){ %> 
                             <div class="col contest-col-div contest-col-div-last">
-                                <span><%= contest.problems[i] %></span>
+                                <span><%= contest.problems[i].probId %></span>
                             </div>
                         <% } else { %> 
                             <div class="col contest-col-div">
-                                <span><%= contest.problems[i] %></span>
+                                <span><%= contest.problems[i].probId %></span>
                             </div>
                         <% } %>
                     <% } %> 

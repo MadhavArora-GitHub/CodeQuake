@@ -111,7 +111,7 @@ async function showProblem(req, res){
                     console.log(err);
                 }
                 else {
-                    res.render("problem", {problem: problem});
+                    res.render("problem", {problem: problem, contest: undefined});
                 }
             });
         }

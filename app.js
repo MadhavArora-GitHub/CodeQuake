@@ -10,8 +10,7 @@ const homeRoute = require("./routes/home");
 const userRoute = require("./routes/user");
 const Submission = require("./models/submissions");
 const Contest = require("./models/contests");
-const Standing = require("./models/standings");
-const Participation = require("./models/participations");
+const { startContest } = require("./middlewares/contests");
 
 const app = express();
 const server = http.createServer(app);
@@ -54,7 +53,7 @@ mongoose.connect(url, (err)=>{
         console.log("kia dikkat he bhai?");
     }
 
-    // setInterval(()=>{
+    setInterval(()=>{
         const curTime = new Date();
 
         Contest.find({processed: false, start: {$lte: curTime}}, (err, contests)=>{
@@ -62,15 +61,19 @@ mongoose.connect(url, (err)=>{
                 console.log(err);
             }
 
+            if (contests.length === 0){
+                console.log("no contests at this moment");
+            }
+
             contests.forEach(async (contest)=>{
                 console.log(`Contest ${contest.id} started...`);
                 startContest(contest);
 
-                // await Contest.updateOne({_id: contest._id}, {$set: {processed: true}});  
+                await Contest.updateOne({_id: contest._id}, {$set: {processed: true}});  
             });
 
         });
-    // }, 10000);
+    }, 10000);
 });
 
 
@@ -149,12 +152,11 @@ app.get("/submission", async (req, res)=>{
     }
 });
 
-app.use("/user", userRoute);
 
 
 io.of("/contest").on("connection", (socket)=>{
     console.log("aaja");
-
+    
     let contestId;
     socket.on("join", (clientContestId)=>{
         socket.join(`contest/${clientContestId}`);
@@ -170,104 +172,8 @@ io.of("/contest").on("connection", (socket)=>{
     });
 });
 
-async function startContest(contest){
-    let timeLeft = contest.end - Date.now() + 10000;
 
-    // user: {
-    //     username: String,
-    //     problems: [{
-    //         probId: String,
-    //         submissions: [String],
-    //         score: Number
-    //     }],
-    //     score: Number
-    // }
-
-    // status: Boolean,
-    // probId: String, 
-    // username: String,
-    // subId: Number,
-    // code: String,
-    // language: String,
-    // verdict: String,
-    // cases: [String],
-    // time: Number,
-    // memory: Number,
-    // timestamp: {
-    //     type: Date,
-    //     default: Date.now()
-    // }
-    let calculateAverageProblemSolvingTime = function (problems){
-        let submissionTimes = [];
-        submissionTimes.push(contest.start);
-        
-        problems.forEach(async (problem)=>{
-            for (let i=0; i<problem.submissions.length; i++){
-                let subId = problem.submissions[i];
-                let submission = await Submission.findOne({subId: subId}).catch((err)=>{
-                    console.log(err);
-                });
-
-                if (submission.verdict === "Accepted"){
-                    submissionTimes.push(submission.timestamp);
-                    break;
-                }
-            }
-        });
-
-        let avgTime = 0;
-        for (let i=1; i<submissionTimes.length; i++){
-            avgTime += (submissionTimes[i] - submissionTimes[i-1]);
-        }
-        avgTime /= (submissionTimes.length - 1);
-
-        return avgTime;
-        
-    }
-
-    Standing.findOne({contestId: contest.id}, async (err, standing)=>{
-        if (err){
-            console.log(err);
-        }
-        
-        let userList = [];
-        let n = standing.users.length;
-        for (let i=0; i<n; i++){
-            let username = standing.users[i];
-            let participation = await Participation.findOne({contestId: contest.id, "user.username": username}).catch((err)=>{
-                console.log(err);
-            });
-
-            let avgTime = calculateAverageProblemSolvingTime(participation.user.problems);
-
-            let newUser = {
-                username: participation.user.username,
-                score: participation.user.score,
-                avgTime: avgTime
-            };
-            userList.push(newUser);
-
-            // console.log(participation);
-        }
-        
-        let cmp = function (a, b){
-            let ans = b.score - a.score;
-            if (ans == 0){
-                ans = a.avg - b.avg;
-            }
-            return ans;
-        }
-        userList.sort(cmp);
-        // console.log(userList);
-
-        for (let i=0; i<n; i++){
-            standing.users[i] = userList[i].username;
-        }
-        await standing.save();
-    });
-}
-
-
+app.use("/user", userRoute);
 
 
 server.listen(3000, ()=>{

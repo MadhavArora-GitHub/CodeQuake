@@ -15,8 +15,8 @@ async function showContests(req, res){
     // let contest = new Contest({
     //     id: 1,
     //     name: "First one",
-    //     start: Date.now(),
-    //     end: Date.now() + 1000*60*60,
+    //     start: Date.now() + 1000*40,
+    //     end: Date.now() + 1000*60*3,
     //     problems: [{
     //         probId: "CQ1A",
     //         score: 500
@@ -31,17 +31,115 @@ async function showContests(req, res){
     // contest = new Contest({
     //     id: 2,
     //     name: "Second one",
-    //     start: Date.now(),
-    //     end: Date.now(),
+    //     start: Date.now() + 1000*60*2 + 1000*40,
+    //     end: Date.now() + 1000*60*3,
     //     problems: ["CQ1A", "CQ1B"],problems: [{
     //         probId: "CQ1A",
     //         score: 500
     //     }, {
     //         probId: "CQ1B",
     //         score: 1000
-    //     }],processed: true
+    //     }]
+    //     ,processed: false
     // });
     // await contest.save();
+
+    // let participation = new Participation({
+    //     contestId: "1",
+    //     user: {
+    //         username: "m",
+    //         problems: [
+    //             {
+    //                 probId: "CQ1A",
+    //                 submissions: [],
+    //                 score: 0
+    //             },
+    //             {
+    //                 probId: "CQ1B",
+    //                 submissions: [],
+    //                 score: 0
+    //             }
+    //         ],
+    //         score: 0
+    //     }
+    // });
+    // await participation.save();
+
+    // participation = new Participation({
+    //     contestId: "1",
+    //     user: {
+    //         username: "ma",
+    //         problems: [
+    //             {
+    //                 probId: "CQ1A",
+    //                 submissions: [],
+    //                 score: 0
+    //             },
+    //             {
+    //                 probId: "CQ1B",
+    //                 submissions: [],
+    //                 score: 0
+    //             }
+    //         ],
+    //         score: 0
+    //     }
+    // });
+    // await participation.save();
+
+    // let standing = new Standing({
+    //     contestId: "1",
+    //     users: ["m", "ma"]
+    // });
+    // await standing.save();
+
+    // participation = new Participation({
+    //     contestId: "2",
+    //     user: {
+    //         username: "m",
+    //         problems: [
+    //             {
+    //                 probId: "CQ1A",
+    //                 submissions: [],
+    //                 score: 0
+    //             },
+    //             {
+    //                 probId: "CQ1B",
+    //                 submissions: [],
+    //                 score: 0
+    //             }
+    //         ],
+    //         score: 0
+    //     }
+    // });
+    // await participation.save();
+
+    // participation = new Participation({
+    //     contestId: "2",
+    //     user: {
+    //         username: "ma",
+    //         problems: [
+    //             {
+    //                 probId: "CQ1A",
+    //                 submissions: [],
+    //                 score: 0
+    //             },
+    //             {
+    //                 probId: "CQ1B",
+    //                 submissions: [],
+    //                 score: 0
+    //             }
+    //         ],
+    //         score: 0
+    //     }
+    // });
+    // await participation.save();
+
+    // standing = new Standing({
+    //     contestId: "2",
+    //     users: ["m", "ma"]
+    // });
+    // await standing.save();
+
 
     Contest.find({}, (err, contests)=>{
         if (err){
@@ -81,56 +179,6 @@ async function showContestProblems(req, res){
 
 async function showContestStandings(req, res){
     const contestId = req.params.contestId;
-
-    // let participation = new Participation({
-    //     contestId: contestId,
-    //     user: {
-    //         username: "m",
-    //         problems: [
-    //             {
-    //                 probId: "CQ1A",
-    //                 submissions: [],
-    //                 score: 0
-    //             },
-    //             {
-    //                 probId: "CQ1B",
-    //                 submissions: [],
-    //                 score: 0
-    //             }
-    //         ],
-    //         score: 0
-    //     }
-    // });
-    // await participation.save();
-
-    // participation = new Participation({
-    //     contestId: contestId,
-    //     user: {
-    //         username: "ma",
-    //         problems: [
-    //             {
-    //                 probId: "CQ1A",
-    //                 submissions: [],
-    //                 score: 0
-    //             },
-    //             {
-    //                 probId: "CQ1B",
-    //                 submissions: [],
-    //                 score: 0
-    //             }
-    //         ],
-    //         score: 0
-    //     }
-    // });
-    // await participation.save();
-
-    // let standing = new Standing({
-    //     contestId: contestId,
-    //     users: ["m", "ma"]
-    // });
-    // await standing.save();
-
-
     
     Standing.findOne({contestId: contestId}, async (err, standing)=>{
         if (err){
@@ -275,82 +323,109 @@ async function submitContestProblem(req, res){
                 }
             });
         }
+        else {
+            res.send("Contest Ended!");
+        }
     });
+    
+}
 
-    // Problem.findOne({id: problemId}, (err, problem)=>{
-    //     if (err){
-    //         console.log(err);
-    //     }
-    //     else {
-    //         Submission.countDocuments({}, async (err, count)=>{
-    //             if (err){
-    //                 console.log(err);
-    //             }
-    //             let subId = count + 1;
-    //             let testcases = problem.testcases;
-    //             let n = testcases.length;
+function contestRefresh(contest){
+    console.log(`contest ${contest.id} refreshed`);
 
-    //             let submission = new Submission({
-    //                 status: false,
-    //                 probId: problem.id, 
-    //                 username: res.locals.user.username,
-    //                 subId: subId,
-    //                 code: req.body.code,
-    //                 language: req.body.lang,
-    //                 verdict: "",
-    //                 cases: [],
-    //                 time: problem.timeLimit,
-    //                 memory: problem.memoryLimit,
-    //                 timestamp: Date.now()
-    //             });
-    //             await submission.save();
+    async function calculateAverageProblemSolvingTime(problems){
+        let submissionTimes = [];
+        submissionTimes.push(contest.start);
+        // console.log(3);
+        // console.log(submissionTimes);
+        
+        for (const problem of problems){
+            for (let i=0; i<problem.submissions.length; i++){
+                let subId = problem.submissions[i];
+                let submission = await Submission.findOne({subId: subId}).catch((err)=>{
+                    console.log(err);
+                });
 
-    //             res.redirect(`/submission?subId=${subId}`);
+                if (submission.verdict === "Accepted"){
+                    submissionTimes.push(submission.timestamp);
+                    // console.log("4 " + submission.timestamp);
+                    break;
+                }
+            }
+        };
 
-    //             await fs.writeFile(path.join(volumePath, `main.${req.body.lang}`), req.body.code);
+        // console.log(5);
+        // console.log(submissionTimes);
 
-    //             for (let i=1; i<=n; i++){
-    //                 await fs.writeFile(path.join(volumePath, "testcases", `in${i}.in`), testcases[i-1].in);
-    //                 await fs.writeFile(path.join(volumePath, "testcases", `eout${i}.out`), testcases[i-1].out);
-    //                 await fs.writeFile(path.join(volumePath, "testcases", `out${i}.out`), "");
-    //             }
 
-    //             try{
-    //                 const { stdout, stderr } = await execPromisify(process.env.RUN_CONTAINER_CPP + ` ${n} ${problem.timeLimit} ${problem.memoryLimit}`);
+        let avgTime = 0;
+        
+        for (let i=1; i<submissionTimes.length; i++){
+            avgTime += (submissionTimes[i] - submissionTimes[i-1]);
+        }
+        if (submissionTimes.length > 1)
+            avgTime /= (submissionTimes.length - 1);
 
-    //                 let output = await fs.readFile(path.join(volumePath, "verdict.txt"));
-    //                 output = output.toString();
-    //                 if (output === "ac"){
-    //                     submission.verdict = "Accepted";
-    //                     output = n;
-    //                 }
-    //                 else if (output === "ce"){
-    //                     submission.verdict = "Compilation error";
-    //                     output = 0;
-    //                 }
-    //                 else if (output === "re"){
-    //                     submission.verdict = "Runtime error";
-    //                     output = 0;
-    //                 }
-    //                 else {
-    //                     submission.verdict = "Wrong answer on testcase " + output;
-    //                 }
+        return avgTime;   
+    }
 
-    //                 for (let i=1; i<=output; i++){
-    //                     let out = await fs.readFile(path.join(volumePath, "testcases", `out${i}.out`));
-    //                     submission.cases.push(out)
-    //                 }
+    Standing.findOne({contestId: contest.id}, async (err, standing)=>{
+        if (err){
+            console.log(err);
+        }
+        
+        let userList = [];
+        let n = standing.users.length;
+        for (let i=0; i<n; i++){
+            let username = standing.users[i];
+            let participation = await Participation.findOne({contestId: contest.id, "user.username": username}).catch((err)=>{
+                console.log(err);
+            });
 
-    //                 submission.status = true;
-    //                 await submission.save();
-    //             }catch(err){
-    //                 console.log(err);
-    //             }
-    //         }); 
-            
-    //     }
-    // });
+            // console.log("2 " + username);
+            let avgTime = await calculateAverageProblemSolvingTime(participation.user.problems);
+            // console.log("6 " + avgTime + " orz");
 
+            let newUser = {
+                username: participation.user.username,
+                score: participation.user.score,
+                avgTime: avgTime
+            };
+            userList.push(newUser);
+
+            // console.log(participation);
+        }
+        
+        let cmp = function (a, b){
+            let ans = b.score - a.score;
+            if (ans == 0){
+                ans = a.avgTime - b.avgTime;
+            }
+            return ans;
+        }
+        userList.sort(cmp);
+        // console.log(userList);
+
+        for (let i=0; i<n; i++){
+            standing.users[i] = userList[i].username;
+        }
+        await standing.save();
+    });
+}
+
+async function startContest(contest){
+
+    let intervalId = setInterval(()=>{
+        if (contest.end - Date.now() <= 0){
+            contestRefresh(contest);
+            clearInterval(intervalId);
+            console.log(`contest ${contest.id} ended`);
+        }
+
+        contestRefresh(contest);
+
+    }, 5000);
+    
 }
 
 module.exports = {
@@ -358,5 +433,6 @@ module.exports = {
     showContestProblems,
     showContestStandings,
     showContestProblem,
-    submitContestProblem
+    submitContestProblem,
+    startContest
 };
